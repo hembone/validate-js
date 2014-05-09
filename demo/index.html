@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Validate-js</title>
+<link rel="stylesheet" type="text/css" href="demo.css">
+</head>
+
+<body>
+
+<div class="container">
+<form class="validate_form" method="post" action="">
+	<label>Name <span class="red">*</span></label>
+	<input data-validate="required" type="text" name="name" />
+	<button type="submit">Submit</button>
+</form>
+
+</div><!-- end container -->
+
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script src="/validate/jquery.validate.js"></script>
+<script>
+$(function() {
+	validate('validate_form', {
+		checkMX: true
+	});
+});
+</script>
+</body>
+</html>

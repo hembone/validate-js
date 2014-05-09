@@ -73,21 +73,30 @@ var allScripts = document.getElementsByTagName("script")
 	,jsFileName = splitLoc[splitLoc.length - 1];
 
 var validateConfigs = {
-	checkMX:false
-	,emailRegEx:/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-	,lang:'en'
-	,phpFilePath:$('script[src$="'+jsFileName+'"]').attr('src').replace(jsFileName,'')+'jquery.validate.php'
-	,errors:0
+	errorClass: 'validate-error'
+	,errorTextClass: 'validate-error-text'
+	,checkMX: false
+	,emailRegEx: /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+	,lang: 'en'
+	,phpFilePath: $('script[src$="'+jsFileName+'"]').attr('src').replace(jsFileName,'')+'jquery.validate.php'
+	,errors: 0
 };
 
 function validate(formClass, settings) {
 	setDefaults(settings);
+	setCss(formClass);
 	iterateFields(formClass, true);
 	setSubmit(formClass);
 }
 
 function setDefaults(settings) {
 	if(typeof settings !== 'undefined') {
+		if(typeof settings.errorClass !== 'undefined') {
+			validateConfigs.errorClass = settings.errorClass;
+		}
+		if(typeof settings.errorTextClass !== 'undefined') {
+			validateConfigs.errorTextClass = settings.errorTextClass;
+		}
 		if(typeof settings.checkMX !== 'undefined') {
 			validateConfigs.checkMX = settings.checkMX;
 		}
@@ -101,6 +110,14 @@ function setDefaults(settings) {
 			validateConfigs.phpFilePath = settings.phpFilePath;
 		}
 	}
+}
+
+function setCss(formClass) {
+	var cssStyles = '<style type="text/css">'+
+	'.validate-error {border:1px solid #b50000;}'+
+	'.validate-error-text {color:#b50000;font-size:0.9em;}'+
+	'</style>';
+	$('.'+formClass+' *').before(cssStyles);
 }
 
 function iterateFields(formClass, set) {
@@ -165,11 +182,11 @@ function parseDataValue(dataValue) {
 
 function displayError(formClass, fieldId, errorText) {
 	var theField = $('[data-'+formClass+'-id="'+fieldId+'"]');
-	theField.parent().removeClass('validate-error');
+	theField.parent().removeClass(validateConfigs.errorClass);
 	$('#'+formClass+'-'+fieldId).remove();
 	if(errorText !== '') {
-		theField.parent().addClass('validate-error');
-		theField.parent().after('<div id="'+formClass+'-'+fieldId+'" class="validate-error-text">'+errorText+'</div>');
+		theField.addClass(validateConfigs.errorClass);
+		theField.after('<div id="'+formClass+'-'+fieldId+'" class="'+validateConfigs.errorTextClass+'">'+errorText+'</div>');
 	}
 }
 

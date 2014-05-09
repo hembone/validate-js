@@ -1,0 +1,13 @@
+body {
+	background: #ccc;
+}
+.container {
+	max-width: 970px;
+	margin: 40px auto;
+	padding:40px;
+	background: #fff;
+	border-radius: 4px;
+}
+.red {
+	color: #b50000;
+}
