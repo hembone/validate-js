@@ -73,9 +73,7 @@ var allScripts = document.getElementsByTagName("script")
 	,jsFileName = splitLoc[splitLoc.length - 1];
 
 var validateConfigs = {
-	errorClass: 'validate-error'
-	,errorTextClass: 'validate-error-text'
-	,checkMX: false
+	checkMX: false
 	,emailRegEx: /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 	,lang: 'en'
 	,phpFilePath: $('script[src$="'+jsFileName+'"]').attr('src').replace(jsFileName,'')+'jquery.validate.php'
@@ -87,16 +85,13 @@ function validate(formClass, settings) {
 	setCss(formClass);
 	iterateFields(formClass, true);
 	setSubmit(formClass);
+	var height = (screen.height/2)-150;
+	var width = (screen.width/2)-100;
+	$('body').prepend('<div id="overlay" style="display:none;height:100%;width:100%;position:absolute;z-index:1000;"><div style="box-shadow:4px 4px 10px 0 #444;background:url(\'../js/global/validate/black_50.png\');position:fixed;top:'+height+'px;left:'+width+'px;width:200px;height:200px;border-radius:20px;"><img style="display:block;margin:0 auto;position:relative;top:34px;" src="../js/global/validate/loader.gif"/></div></div>');
 }
 
 function setDefaults(settings) {
 	if(typeof settings !== 'undefined') {
-		if(typeof settings.errorClass !== 'undefined') {
-			validateConfigs.errorClass = settings.errorClass;
-		}
-		if(typeof settings.errorTextClass !== 'undefined') {
-			validateConfigs.errorTextClass = settings.errorTextClass;
-		}
 		if(typeof settings.checkMX !== 'undefined') {
 			validateConfigs.checkMX = settings.checkMX;
 		}
@@ -197,7 +192,7 @@ function displayError(formClass, fieldId, errorText) {
 var delay;
 
 function setText(formClass, fieldId, rules) {
-	$('[data-'+formClass+'-id="'+fieldId+'"]').on('keyup change blur', function() {
+	$('[data-'+formClass+'-id="'+fieldId+'"]').on('change blur', function() {
 		clearTimeout(delay);
 		delay = setTimeout(function() {	
 			checkText(formClass, fieldId, rules);
@@ -293,11 +288,13 @@ function checkSelect(formClass, fieldId, rules) {
 }
 
 function checkAll(formClass) {
+	$('#overlay').show();
 	validateConfigs.errors = 0;
 	iterateFields(formClass, false);
 	if(validateConfigs.errors === 0){
 		return true;
 	} else {
+		$('#overlay').fadeOut();
 		return false;
 	}
 }
@@ -341,26 +338,30 @@ function isMatch(input, value) {
 
 function isEmail(input, formClass, fieldId) {
 	var errorText = errorLang['valid-email'][validateConfigs.lang];
-	if(!validateConfigs.emailRegEx.test(input)) {
-		return errorText;
-	} else {
-		if(validateConfigs.checkMX) {
-			$.ajax({
-				type:'POST'
-				,url:validateConfigs.phpFilePath
-				,dataType:'json'
-				,data:{email:input}
-			})
-			.done(function(res) {
-				if(res.result === 'invalid') {
-					displayError(formClass, fieldId, errorText);
-				} else {
-					dupEmail(input, formClass, fieldId);
-				}
-			});
+	if(input !== '') {
+		if(!validateConfigs.emailRegEx.test(input)) {
+			return errorText;
 		} else {
-			return false;
+			if(validateConfigs.checkMX) {
+				$.ajax({
+					type:'POST'
+					,url:validateConfigs.phpFilePath
+					,dataType:'json'
+					,data:{email:input}
+				})
+				.done(function(res) {
+					if(res.result === 'invalid') {
+						displayError(formClass, fieldId, errorText);
+					} else {
+						dupEmail(input, formClass, fieldId);
+					}
+				});
+			} else {
+				return false;
+			}
 		}
+	} else {
+		return false;
 	}
 }
 
