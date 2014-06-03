@@ -41,6 +41,12 @@ var errorLang = {
 		,'mx-es':' field.' // mexican spanish
 		,'la-es':' field.' // latin american spanish
 	}
+	,'valid-password':{
+		'en':'Your password must be at least 8 characters in length and contain an alpha, a numeric and one of the following special characters:  !, $, #, %' // english
+		,'fr':'Votre mot de passe doit comporter au moins 8 caractères et contenir un alpha, un numérique et un des caractères spéciaux suivants: !, $, #, %' // french
+		,'mx-es':'Su contraseña debe tener al menos 8 caracteres de longitud y contener un alfa, un valor numérico y uno de los siguientes caracteres especiales: !, $, #, %' // mexican spanish
+		,'la-es':'Su contraseña debe tener al menos 8 caracteres de longitud y contener un alfa, un valor numérico y uno de los siguientes caracteres especiales: !, $, #, %' // latin american spanish
+	}
 	,'valid-email':{
 		'en':'You must enter a valid email address.' // english
 		,'fr':'Vous devez entrer une adresse email valide.' // french
@@ -75,6 +81,7 @@ var allScripts = document.getElementsByTagName("script")
 var validateConfigs = {
 	checkMX: false
 	,emailRegEx: /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+	,passwordRegEx:/^.*(?=.{8,})(?=.*[a-zA-Z])(?=.*\d)(?=.*[!$#% "]).*$/
 	,lang: 'en'
 	,phpFilePath: $('script[src$="'+jsFileName+'"]').attr('src').replace(jsFileName,'')+'jquery.validate.php'
 	,errors: 0
@@ -97,7 +104,10 @@ function setDefaults(settings) {
 		}
 		if(typeof settings.emailRegEx !== 'undefined') {
 			validateConfigs.emailRegEx = settings.emailRegEx;
-		}	
+		}
+		if(typeof settings.passwordRegEx !== 'undefined') {
+			validateConfigs.passwordRegEx = settings.passwordRegEx;
+		}
 		if(typeof settings.lang !== 'undefined') {
 			validateConfigs.lang = settings.lang;
 		}
@@ -251,6 +261,13 @@ function checkText(formClass, fieldId, rules) {
 					errorText = response;
 				}
 				break;
+			case 'password':
+				var response = isPassword(input);
+				if(response) {
+					validateConfigs.errors++;
+					errorText = response;
+				}
+				break;
 			case 'email':
 				var response = isEmail(input, formClass, fieldId);
 				if(response) {
@@ -328,9 +345,20 @@ function isMaxLength(input, value) {
 }
 
 function isMatch(input, value) {
-	var matchInput = $('[name="'+value+'"]').val();
-	if(input.trim() !== matchInput.trim()) {
-		return errorLang['match-text-1'][validateConfigs.lang]+value+errorLang['match-text-2'][validateConfigs.lang];
+	var splitValue = value.split('|');
+	var name = splitValue[0];
+	var field = splitValue[1];
+	var matchInput = $('[name="'+name+'"]').val();
+	if($.trim(input) !== $.trim(matchInput)) {
+		return errorLang['match-text-1'][validateConfigs.lang]+field+errorLang['match-text-2'][validateConfigs.lang];
+	} else {
+		return false;
+	}
+}
+
+function isPassword(input) {
+	if(!validateConfigs.passwordRegEx.test(input)) {
+		return errorLang['valid-password'][validateConfigs.lang];
 	} else {
 		return false;
 	}
