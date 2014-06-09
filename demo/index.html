@@ -9,10 +9,29 @@
 <body>
 
 <div class="container">
-<form class="validate_form" method="post" action="">
-	<label>Name <span class="red">*</span></label>
-	<input data-validate="required" type="text" name="name" />
-	<button type="submit">Submit</button>
+
+<form class="validate_form" method="post" action="/">
+	<div class="field_box">
+		<label>Name: <span class="red">*</span></label>
+		<input data-validate="required" type="text" name="name" />
+	</div>
+	<div class="field_box">
+		<label>Email: <span class="red">*</span></label>
+		<input data-validate="required, email" type="text" name="name" />
+	</div>
+	<div class="field_box">
+		<label>Color: <span class="red">*</span></label>
+		<select data-validate="required" name="colors">
+			<option value="">Select...</option>
+			<option value="blue">Blue</option>
+			<option value="green">Green</option>
+			<option value="yellow">Yellow</option>
+			<option value="red">Red</option>
+		</select>
+	</div>
+	<div class="field_box">
+		<button type="submit">Submit</button>
+	</div>
 </form>
 
 </div><!-- end container -->

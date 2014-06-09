@@ -11,3 +11,6 @@ body {
 .red {
 	color: #b50000;
 }
+.field_box {
+	padding: 8px 0;
+}

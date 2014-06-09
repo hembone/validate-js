@@ -73,28 +73,27 @@ var errorLang = {
 	}
 };
 
-var allScripts = document.getElementsByTagName("script")
-    ,validateScriptLocation = allScripts[allScripts.length - 1].src
-	,splitLoc = validateScriptLocation.split('/')
-	,jsFileName = splitLoc[splitLoc.length - 1];
+var allScripts = document.getElementsByTagName("script");
+var validateScriptLocation = allScripts[allScripts.length - 1].src;
+var splitLoc = validateScriptLocation.split('/');
+var jsFileName = splitLoc[splitLoc.length - 1];
+var basePath = validateScriptLocation.replace(jsFileName,'');
 
 var validateConfigs = {
 	checkMX: false
 	,emailRegEx: /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 	,passwordRegEx:/^.*(?=.{8,})(?=.*[a-zA-Z])(?=.*\d)(?=.*[!$#% "]).*$/
 	,lang: 'en'
-	,phpFilePath: $('script[src$="'+jsFileName+'"]').attr('src').replace(jsFileName,'')+'jquery.validate.php'
+	,errorClass:'validate-error'
+	,errorTextClass:'validate-error-text'
 	,errors: 0
 };
 
 function validate(formClass, settings) {
 	setDefaults(settings);
-	setCss(formClass);
+	setCss();
 	iterateFields(formClass, true);
 	setSubmit(formClass);
-	var height = (screen.height/2)-150;
-	var width = (screen.width/2)-100;
-	$('body').prepend('<div id="overlay" style="display:none;height:100%;width:100%;position:absolute;z-index:1000;"><div style="box-shadow:4px 4px 10px 0 #444;background:url(\'../js/global/validate/black_50.png\');position:fixed;top:'+height+'px;left:'+width+'px;width:200px;height:200px;border-radius:20px;"><img style="display:block;margin:0 auto;position:relative;top:34px;" src="../js/global/validate/loader.gif"/></div></div>');
 }
 
 function setDefaults(settings) {
@@ -111,18 +110,26 @@ function setDefaults(settings) {
 		if(typeof settings.lang !== 'undefined') {
 			validateConfigs.lang = settings.lang;
 		}
-		if(typeof settings.phpFilePath !== 'undefined') {
-			validateConfigs.phpFilePath = settings.phpFilePath;
+		if(typeof settings.errorClass !== 'undefined') {
+			validateConfigs.errorClass = settings.errorClass;
+		}
+		if(typeof settings.errorTextClass !== 'undefined') {
+			validateConfigs.errorTextClass = settings.errorTextClass;
 		}
 	}
 }
 
-function setCss(formClass) {
+function setCss() {
+	var height = ($(window).height()/2)-150;
+	var width = ($(window).width()/2)-100;
+	$('body').prepend('<div id="overlay"><img src="'+basePath+'loader.gif"/></div>');
 	var cssStyles = '<style type="text/css">'+
 	'.validate-error {border:1px solid #b50000;}'+
 	'.validate-error-text {color:#b50000;font-size:0.9em;}'+
+	'#overlay {display:none;box-shadow:4px 4px 10px 0 #444;background:url(\''+basePath+'black_50.png\');position:fixed;z-index:1000;top:'+height+'px;left:'+width+'px;width:200px;height:200px;border-radius:20px;}'+
+	'#overlay img {display:block;margin:0 auto;position:relative;top:35px;}'+
 	'</style>';
-	$('.'+formClass+' *').before(cssStyles);
+	$('body').prepend(cssStyles);
 }
 
 function iterateFields(formClass, set) {
@@ -373,7 +380,7 @@ function isEmail(input, formClass, fieldId) {
 			if(validateConfigs.checkMX) {
 				$.ajax({
 					type:'POST'
-					,url:validateConfigs.phpFilePath
+					,url:basePath+'jquery.validate.php'
 					,dataType:'json'
 					,data:{email:input}
 				})
