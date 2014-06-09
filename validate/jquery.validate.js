@@ -142,9 +142,9 @@ function setSubmit(formClass) {
 	var theForm = $('.'+formClass);
 	theForm.on('submit', function(event) {
 		if(checkAll(formClass)) {
-			theForm.submit();
+		} else {
+			event.preventDefault();
 		}
-		event.preventDefault();
 	});
 }
 
