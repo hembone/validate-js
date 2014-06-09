@@ -10,14 +10,18 @@
 
 <div class="container">
 
-<form class="validate_form" method="post" action="/">
+<form class="validate_form" method="post" action="/demo/">
 	<div class="field_box">
 		<label>Name: <span class="red">*</span></label>
 		<input data-validate="required" type="text" name="name" />
 	</div>
 	<div class="field_box">
 		<label>Email: <span class="red">*</span></label>
-		<input data-validate="required, email" type="text" name="name" />
+		<input data-validate="required, email" type="text" name="email" />
+	</div>
+	<div class="field_box">
+		<label>Verify Email: <span class="red">*</span></label>
+		<input data-validate="required, match:email|Email" type="text" name="email2" />
 	</div>
 	<div class="field_box">
 		<label>Color: <span class="red">*</span></label>
@@ -28,6 +32,10 @@
 			<option value="yellow">Yellow</option>
 			<option value="red">Red</option>
 		</select>
+	</div>
+	<div class="field_box">
+		<label>Comments: <span class="red">*</span></label><br/>
+		<textarea data-validate="required" name="name"></textarea>
 	</div>
 	<div class="field_box">
 		<button type="submit">Submit</button>

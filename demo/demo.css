@@ -1,16 +1,21 @@
 body {
-	background: #ccc;
+	background: #eee;
+	font-family: Arial, sans-serif;
+}
+input, textarea {
+	width: 100%;
 }
 .container {
-	max-width: 970px;
+	max-width: 800px;
 	margin: 40px auto;
 	padding:40px;
 	background: #fff;
-	border-radius: 4px;
+	border: 1px solid #ccc;
+	border-radius: 6px;
 }
 .red {
 	color: #b50000;
 }
 .field_box {
-	padding: 8px 0;
+	padding: 10px 0;
 }

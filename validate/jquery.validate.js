@@ -1,75 +1,39 @@
 var errorLang = {
 	'empty-text':{
 		'en':'This field must be filled in.' // english
-		,'fr':'Ce champ doit être rempli po.' // french
-		,'mx-es':'Este campo debe ser llenado pulg.' // mexican spanish
-		,'la-es':'Este campo debe ser llenado pulg.' // latin american spanish
 	}
 	,'min-text-1':{
 		'en':'This field needs at least ' // english
-		,'fr':'Ce champ a besoin d\'au moins ' // french
-		,'mx-es':'Este campo necesita al menos ' // mexican spanish
-		,'la-es':'Este campo necesita al menos ' // latin american spanish
 	}
 	,'min-text-2':{
 		'en':' characters.' // english
-		,'fr':' caractères.' // french
-		,'mx-es':' caracteres.' // mexican spanish
-		,'la-es':' caracteres.' // latin american spanish
 	}	
 	,'max-text-1':{
 		'en':'This field must not exceed ' // english
-		,'fr':'Ce champ ne doit pas dépasser ' // french
-		,'mx-es':'Este campo no debe superar ' // mexican spanish
-		,'la-es':'Este campo no debe superar ' // latin american spanish
 	}
 	,'max-text-2':{
 		'en':' characters.' // english
-		,'fr':' caractères.' // french
-		,'mx-es':' caracteres.' // mexican spanish
-		,'la-es':' caracteres.' // latin american spanish
 	}
 	,'match-text-1':{
 		'en':'This field must match the ' // english
-		,'fr':'Ce champ doit correspondre à la ' // french
-		,'mx-es':'Este campo debe coincidir con el ' // mexican spanish
-		,'la-es':'Este campo debe coincidir con el ' // latin american spanish
 	}
 	,'match-text-2':{
 		'en':' field.' // english
-		,'fr':' field.' // french
-		,'mx-es':' field.' // mexican spanish
-		,'la-es':' field.' // latin american spanish
 	}
 	,'valid-password':{
 		'en':'Your password must be at least 8 characters in length and contain an alpha, a numeric and one of the following special characters:  !, $, #, %' // english
-		,'fr':'Votre mot de passe doit comporter au moins 8 caractères et contenir un alpha, un numérique et un des caractères spéciaux suivants: !, $, #, %' // french
-		,'mx-es':'Su contraseña debe tener al menos 8 caracteres de longitud y contener un alfa, un valor numérico y uno de los siguientes caracteres especiales: !, $, #, %' // mexican spanish
-		,'la-es':'Su contraseña debe tener al menos 8 caracteres de longitud y contener un alfa, un valor numérico y uno de los siguientes caracteres especiales: !, $, #, %' // latin american spanish
 	}
 	,'valid-email':{
 		'en':'You must enter a valid email address.' // english
-		,'fr':'Vous devez entrer une adresse email valide.' // french
-		,'mx-es':'Debe introducir una dirección de correo electrónico válida.' // mexican spanish
-		,'la-es':'Debe introducir una dirección de correo electrónico válida.' // latin american spanish
 	}
 	,'email-exists':{
 		'en':'That email address already exists in our system.' // english
-		,'fr':'Cette adresse e-mail existe déjà dans notre système.' // french
-		,'mx-es':'Esa dirección de correo electrónico ya existe en nuestro sistema.' // mexican spanish
-		,'la-es':'Esa dirección de correo electrónico ya existe en nuestro sistema.' // latin american spanish
 	}
 	,'phone-exists':{
 		'en':'That phone number already exists in our system.' // english
-		,'fr':'Ce numéro de téléphone existe déjà dans notre système.' // french
-		,'mx-es':'Que el número de teléfono que ya existe en nuestro sistema.' // mexican spanish
-		,'la-es':'Que el número de teléfono que ya existe en nuestro sistema.' // latin american spanish
 	}
 	,'make-selection':{
 		'en':'You must make a selection.' // english
-		,'fr':'Vous devez faire un choix.' // french
-		,'mx-es':'Usted debe hacer una selección.' // mexican spanish
-		,'la-es':'Usted debe hacer una selección.' // latin american spanish
 	}
 };
 
@@ -150,6 +114,7 @@ function iterateFields(formClass, set) {
 			switch(type) {
 				case 'text':
 				case 'password':
+				case 'textarea':
 					if(set) {
 						setText(formClass, fieldId, rules);
 					} else {
@@ -194,7 +159,7 @@ function parseDataValue(dataValue) {
 
 function displayError(formClass, fieldId, errorText) {
 	var theField = $('[data-'+formClass+'-id="'+fieldId+'"]');
-	theField.parent().removeClass(validateConfigs.errorClass);
+	theField.removeClass(validateConfigs.errorClass);
 	$('#'+formClass+'-'+fieldId).remove();
 	if(errorText !== '') {
 		theField.addClass(validateConfigs.errorClass);
