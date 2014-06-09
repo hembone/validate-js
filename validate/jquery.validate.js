@@ -89,7 +89,7 @@ function setCss() {
 	$('body').prepend('<div id="overlay"><img src="'+basePath+'loader.gif"/></div>');
 	var cssStyles = '<style type="text/css">'+
 	'.validate-error {border:1px solid #b50000;}'+
-	'.validate-error-text {color:#b50000;font-size:0.9em;}'+
+	'.validate-error-text {color:#b50000;font-size:0.8em;}'+
 	'#overlay {display:none;box-shadow:4px 4px 10px 0 #444;background:url(\''+basePath+'black_50.png\');position:fixed;z-index:1000;top:'+height+'px;left:'+width+'px;width:200px;height:200px;border-radius:20px;}'+
 	'#overlay img {display:block;margin:0 auto;position:relative;top:35px;}'+
 	'</style>';

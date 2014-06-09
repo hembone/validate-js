@@ -4,6 +4,7 @@ body {
 }
 input, textarea {
 	width: 100%;
+	padding: 2px 4px;
 }
 .container {
 	max-width: 800px;
@@ -15,6 +16,10 @@ input, textarea {
 }
 .red {
 	color: #b50000;
+}
+.validate_form label {
+	color: #666;
+	font-size: 0.9em;
 }
 .field_box {
 	padding: 10px 0;
