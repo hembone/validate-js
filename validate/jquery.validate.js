@@ -21,7 +21,7 @@ var errorLang = {
 		'en':' field.' // english
 	}
 	,'valid-password':{
-		'en':'Your password must be at least 8 characters in length and contain an alpha, a numeric and one of the following special characters:  !, $, #, %' // english
+		'en':'Your password must be at least 8 characters in length and contain an alpha, a numeric and one of the following special characters:  !, $, #, %, &, *, @' // english
 	}
 	,'valid-email':{
 		'en':'You must enter a valid email address.' // english
@@ -46,7 +46,7 @@ var basePath = validateScriptLocation.replace(jsFileName,'');
 var validateConfigs = {
 	checkMX: false
 	,emailRegEx: /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-	,passwordRegEx:/^.*(?=.{8,})(?=.*[a-zA-Z])(?=.*\d)(?=.*[!$#% "]).*$/
+	,passwordRegEx:/^.*(?=.{8,})(?=.*[a-zA-Z])(?=.*\d)(?=.*[!$#%&*@ "]).*$/
 	,lang: 'en'
 	,errorClass:'validate-error'
 	,errorTextClass:'validate-error-text'
@@ -353,7 +353,7 @@ function isEmail(input, formClass, fieldId) {
 					if(res.result === 'invalid') {
 						displayError(formClass, fieldId, errorText);
 					} else {
-						dupEmail(input, formClass, fieldId);
+						return false;
 					}
 				});
 			} else {
@@ -371,38 +371,4 @@ function isSelected(input) {
 	} else {
 		return false;
 	}
-}
-
-function dupEmail(input, formClass, fieldId) {
-	var errorText = errorLang['email-exists'][validateConfigs.lang];
-	$.ajax({
-		type:'POST'
-		,url:'/validate.api.php'
-		,dataType:'json'
-		,data:{dup_email:input}
-	})
-	.done(function(res) {
-		if(res.result === 'invalid') {
-			displayError(formClass, fieldId, errorText);
-		} else {
-			return false;
-		}
-	});
-}
-
-function dupPhone(input, formClass, fieldId) {
-	var errorText = errorLang['phone-exists'][validateConfigs.lang];
-	$.ajax({
-		type:'POST'
-		,url:'/validate.api.php'
-		,dataType:'json'
-		,data:{dup_phone:input}
-	})
-	.done(function(res) {
-		if(res.result === 'invalid') {
-			displayError(formClass, fieldId, errorText);
-		} else {
-			return false;
-		}
-	});
 }
