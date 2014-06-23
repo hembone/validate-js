@@ -10,7 +10,7 @@
 
 <div class="container">
 
-<form class="validate_form" method="post" action="/demo/">
+<form id="validate_form" method="post" action="/demo/">
 	<div class="field_box">
 		<label>Name: <span class="red">*</span></label>
 		<input data-validate="required" type="text" name="name" />
@@ -48,7 +48,7 @@
 <script src="/validate/jquery.validate.js"></script>
 <script>
 $(function() {
-	$('.validate_form').validate();
+	$('#validate_form').validate();
 });
 </script>
 </body>
