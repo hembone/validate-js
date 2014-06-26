@@ -45,4 +45,4 @@ $(function() {
 | Select Multiple | required |
 
 
-For more instructions goto [validate-js.jasonhemmy.com]
+For more instructions goto [validate-js.jasonhemmy.com](validate-js.jasonhemmy.com)
