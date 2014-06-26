@@ -86,6 +86,10 @@
 			}
 		});
 
+
+		////////////////////
+		// ITERATE FIELDS
+		////////////////////
 		iterateFields(true);
 
 		function iterateFields(set) {
@@ -130,6 +134,9 @@
 			});
 		}
 
+		////////////////////
+		// PARSE DATA VALUES
+		////////////////////
 		function parseDataValue(dataValue) {
 			var rules = [];
 			var splitValues = dataValue.split(',');
@@ -139,6 +146,9 @@
 			return rules;
 		}
 
+		////////////////////
+		// DISPLAY ERRORS
+		////////////////////
 		function displayError(fieldId, errorText) {
 			var theField = $('[data-'+formSelector+'-id="'+fieldId+'"]');
 			theField.removeClass(settings.errorClass);
