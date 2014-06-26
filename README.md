@@ -38,4 +38,8 @@ Available Rules
 
 | Field Type | Rules          |
 | ------ | ------ |
-| Text      | required, min-length:[*num*], max-length:[*num*], match:[*field name*]/|[*friendly field name*], password, email|
+| Text | required, min-length, max-length, match, password, email |
+| Password | required, min-length, max-length, match, password, email |
+| Textarea | required, min-length, max-length, match, password, email |
+| Select One | required |
+| Select Multiple | required |
