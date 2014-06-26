@@ -1,7 +1,9 @@
 #Validate-js
 
 
-Version 1.0 [validate-js.jasonhemmy.com](validate-js.jasonhemmy.com)
+Version 1.0 
+
+###Full insructions at [validate-js.jasonhemmy.com](validate-js.jasonhemmy.com)
 
 ```html
 <form id="validate_form" method="post" action="">
