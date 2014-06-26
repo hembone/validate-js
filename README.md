@@ -5,6 +5,8 @@ Version 1.0
 
 ####Full instructions at http://validate-js.jasonhemmy.com
 
+##Basic Example
+
 ```html
 <form id="validate_form" method="post" action="">
 
