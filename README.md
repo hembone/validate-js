@@ -33,3 +33,9 @@ $(function() {
 });
 </script>
 ```
+
+Available Rules
+
+| Field Type | Rules          |
+| ------ | ------ |
+| Text      | required, min-length:['num'], max-length:['num'], match:['field name']|[friendly field name], password, email|
