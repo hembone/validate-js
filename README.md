@@ -43,3 +43,6 @@ $(function() {
 | Textarea | required, min-length, max-length, match, password, email |
 | Select One | required |
 | Select Multiple | required |
+
+
+For more instructions goto [validate-js.jasonhemmy.com]
