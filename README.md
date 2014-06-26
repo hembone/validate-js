@@ -3,7 +3,7 @@
 
 Version 1.0 
 
-####Full instructions at [validate-js.jasonhemmy.com](validate-js.jasonhemmy.com)
+####Full instructions at [validate-js.jasonhemmy.com](http://validate-js.jasonhemmy.com)
 
 ```html
 <form id="validate_form" method="post" action="">
@@ -47,4 +47,4 @@ $(function() {
 | Select Multiple | required |
 
 
-For full instructions goto [validate-js.jasonhemmy.com](validate-js.jasonhemmy.com)
+For full instructions visit [validate-js.jasonhemmy.com](http://validate-js.jasonhemmy.com)
