@@ -50,10 +50,11 @@
 
 		var formObj = this;
 		var formSelector = this.selector.replace(/[#.]/, '');
+		var basePath = window.location.protocol + "//" + window.location.host + "/"
 		var delay;
 
 		var settings = $.extend({
-			filePath: window.location.protocol + "//" + window.location.host + "/validate/"
+			filePath: "validate/"
 			,emailRegEx: /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 			,passwordRegEx: /^.*(?=.{8,})(?=.*[a-zA-Z])(?=.*\d)(?=.*[!$#%&*@ "]).*$/
 			,lang: 'en'
@@ -67,11 +68,11 @@
 		////////////////////
 		var height = ($(window).height()/2)-150;
 		var width = ($(window).width()/2)-100;
-		$('body').prepend('<div id="overlay"><img src="'+settings.filePath+'loader.gif"/></div>');
+		$('body').prepend('<div id="overlay"><img src="'+basePath+settings.filePath+'loader.gif"/></div>');
 		var cssStyles = '<style type="text/css">'+
 		'.validate-error {border:1px solid #b50000;}'+
 		'.validate-error-text {color:#b50000;font-size:0.8em;}'+
-		'#overlay {display:none;box-shadow:4px 4px 10px 0 #444;background:url(\''+settings.filePath+'black_50.png\');position:fixed;z-index:1000;top:'+height+'px;left:'+width+'px;width:200px;height:200px;border-radius:20px;}'+
+		'#overlay {display:none;box-shadow:4px 4px 10px 0 #444;background:url(\''+basePath+settings.filePath+'black_50.png\');position:fixed;z-index:1000;top:'+height+'px;left:'+width+'px;width:200px;height:200px;border-radius:20px;}'+
 		'#overlay img {display:block;margin:0 auto;position:relative;top:35px;}'+
 		'</style>';
 		$('body').prepend(cssStyles);
@@ -85,7 +86,6 @@
 				event.preventDefault();
 			}
 		});
-
 
 		////////////////////
 		// ITERATE FIELDS
@@ -347,10 +347,9 @@
 		}
 
 		function isEmail(input, formClass, fieldId) {
-			var errorText = errorLang['valid-email'][settings.lang];
 			if(input !== '') {
 				if(!settings.emailRegEx.test(input)) {
-					return errorText;
+					return errorLang['valid-email'][settings.lang];
 				} else {
 					return false;
 				}
