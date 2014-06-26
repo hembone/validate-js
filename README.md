@@ -34,7 +34,7 @@ $(function() {
 </script>
 ```
 
-Available Rules
+##Available Rules
 
 | Field Type | Rules          |
 | ------ | ------ |
