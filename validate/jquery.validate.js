@@ -287,6 +287,38 @@
 			displayError(fieldId, errorText);
 		}
 
+		function checkRadio(fieldId, rules) {
+			var theField = $('[data-'+formSelector+'-id="'+fieldId+'"]');
+			var fieldData = theField[0];
+			var input = fieldData.value;
+			var errorText = '';
+
+			////////////////////
+			// EXCEPTIONS
+			////////////////////
+			var checkField = true;
+			////////////////////
+			////////////////////
+			
+			if(checkField) {
+
+				$.each(rules, function(key, rule) {
+					switch(rule) {
+						case 'required':
+							var response = isSelected(input);
+							if(response) {
+								settings.errors++;
+								errorText = response;
+							}
+							break;
+					}
+				});
+
+			}
+
+			displayError(fieldId, errorText);
+		}
+
 		function checkAll() {
 			$('#overlay').show();
 			settings.errors = 0;

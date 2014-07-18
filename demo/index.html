@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Validate-js</title>
+<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans">
 <link rel="stylesheet" type="text/css" href="demo.css">
 </head>
 
@@ -34,11 +35,16 @@
 		</select>
 	</div>
 	<div class="field_box">
+		<label>Size: <span class="red">*</span></label>
+		<input type="radio" name="size" value="" />
+
+	</div>
+	<div class="field_box">
 		<label>Comments: <span class="red">*</span></label><br/>
 		<textarea data-validate="required" rows="5" name="name"></textarea>
 	</div>
 	<div class="field_box">
-		<button type="submit">Submit</button>
+		<button class="val_button" type="submit">Submit</button>
 	</div>
 </form>
 
