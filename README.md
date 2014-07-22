@@ -1,7 +1,7 @@
 #Validate-js
 
 
-Version 1.0 
+Version 1.1
 
 ####Full instructions at http://validate-js.hembone.com
 
