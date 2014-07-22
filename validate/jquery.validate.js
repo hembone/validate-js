@@ -1,4 +1,4 @@
-// Validate-js   Version 1.0
+// Validate-js   Version 1.01
 ////////////////////////////////
 
 (function($) {
