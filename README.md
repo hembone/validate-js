@@ -3,7 +3,7 @@
 
 Version 1.0 
 
-####Full instructions at http://validate-js.jasonhemmy.com
+####Full instructions at http://validate-js.hembone.com
 
 ##Basic Example
 
@@ -49,4 +49,4 @@ $(function() {
 | Select Multiple | required |
 
 
-For full instructions visit http://validate-js.jasonhemmy.com
+For full instructions visit http://validate-js.hembone.com
