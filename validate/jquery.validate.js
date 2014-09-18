@@ -37,36 +37,32 @@
 			,'valid-email':{
 				'en':'You must enter a valid email address.'
 			}
-			,'email-exists':{
-				'en':'That email address already exists in our system.'
-			}
-			,'phone-exists':{
-				'en':'That phone number already exists in our system.'
-			}
 			,'make-selection':{
 				'en':'You must make a selection.'
 			}
 		};
-
 		var formObj = this;
 		var formSelector = this.selector.replace(/[#.]/, '');
 		var basePath = window.location.protocol + "//" + window.location.host + "/"
 		var delay;
-
 		var settings = $.extend({
 			filePath: "validate/"
 			,emailRegEx: /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 			,passwordRegEx: /^.*(?=.{8,})(?=.*[a-zA-Z])(?=.*\d)(?=.*[!$#%&*@ "]).*$/
 			,lang: 'en'
+			,showOverlay: true
 			,errorClass: 'validate-error'
 			,errorTextClass: 'validate-error-text'
 			,errors: 0
 		}, options);
+		////////////////////
+		////////////////////
+
 
 		////////////////////
 		// SET CSS
 		////////////////////
-		var height = ($(window).height()/2)-150;
+		var height = ($(window).height()/2)-100;
 		var width = ($(window).width()/2)-100;
 		$('body').prepend('<div id="overlay"><img src="'+basePath+settings.filePath+'loader.gif"/></div>');
 		var cssStyles = '<style type="text/css">'+
@@ -76,16 +72,22 @@
 		'#overlay img {display:block;margin:0 auto;position:relative;top:35px;}'+
 		'</style>';
 		$('body').prepend(cssStyles);
+		////////////////////
+		////////////////////
+
 
 		////////////////////
 		// SET SUBMIT
 		////////////////////
 		this.on('submit', function(event) {
-			if(checkAll(formSelector)) {
+			if(checkAll()) {
 			} else {
 				event.preventDefault();
 			}
 		});
+		////////////////////
+		////////////////////
+
 
 		////////////////////
 		// ITERATE FIELDS
@@ -133,6 +135,9 @@
 				}
 			});
 		}
+		////////////////////
+		////////////////////
+
 
 		////////////////////
 		// PARSE DATA VALUES
@@ -145,6 +150,9 @@
 			});
 			return rules;
 		}
+		////////////////////
+		////////////////////
+
 
 		////////////////////
 		// DISPLAY ERRORS
@@ -158,6 +166,9 @@
 				theField.after('<div id="'+formSelector+'-'+fieldId+'" class="'+settings.errorTextClass+'">'+errorText+'</div>');
 			}
 		}
+		////////////////////
+		////////////////////
+
 
 		////////////////////
 		// FIELD SETTERS
@@ -179,6 +190,9 @@
 				}, 300);
 			});
 		}
+		////////////////////
+		////////////////////
+
 
 		////////////////////
 		// FIELD CHECKERS
@@ -320,16 +334,23 @@
 		}
 
 		function checkAll() {
-			$('#overlay').show();
+			if(settings.showOverlay) {
+				$('#overlay').show();
+			}
 			settings.errors = 0;
 			iterateFields(false);
 			if(settings.errors === 0){
 				return true;
 			} else {
-				$('#overlay').fadeOut();
+				if(settings.showOverlay) {
+					$('#overlay').fadeOut();
+				}
 				return false;
 			}
 		}
+		////////////////////
+		////////////////////
+
 
 		////////////////////
 		// RULES
@@ -378,7 +399,7 @@
 			}
 		}
 
-		function isEmail(input, formClass, fieldId) {
+		function isEmail(input, fieldId) {
 			if(input !== '') {
 				if(!settings.emailRegEx.test(input)) {
 					return errorLang['valid-email'][settings.lang];
@@ -397,6 +418,8 @@
 				return false;
 			}
 		}
+		////////////////////
+		////////////////////
 
 	};
 
