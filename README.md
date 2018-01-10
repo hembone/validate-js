@@ -3,8 +3,6 @@
 
 Version 1.0 
 
-####Full instructions at http://validate-js.hembone.com
-
 ##Basic Example
 
 ```html
@@ -47,6 +45,3 @@ $(function() {
 | Textarea | required, min-length, max-length, match, password, email |
 | Select One | required |
 | Select Multiple | required |
-
-
-For full instructions visit http://validate-js.hembone.com
